@@ -2,32 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { ToTrainComponent } from './components/to-train/to-train.component';
-import { RelaxComponent } from './components/relax/relax.component';
-import { StoriesComponent } from './components/stories/stories.component';
-import { CoachComponent } from './components/coach/coach.component';
-import { ActivitiesComponent } from './components/activities/activities.component';
-
-
-// Rutas
-import { APP_ROUTING } from "./app.routes";
+import { ErrorPageComponent } from './shared/error-page/error-page.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    ToTrainComponent,
-    RelaxComponent,
-    StoriesComponent,
-    CoachComponent,
-    ActivitiesComponent
+    ErrorPageComponent
   ],
   imports: [
-    BrowserModule,
-    APP_ROUTING
+    BrowserModule, 
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
