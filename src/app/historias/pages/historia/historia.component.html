@@ -1,1 +1,31 @@
-<p>historia works!</p>
+<h1>Historia</h1>
+
+<div class="row">
+    <div class="col-sm-6">
+        <video width="320" height="240" #videoPlayer muted>
+            <source src="{{historia.url}}" type="video/mp4" >
+          </video>
+        <div class="d-flex">
+
+            <div>
+                <button (click)="reiniciarVideo()">Reiniciar</button>
+            </div>
+
+            <div>
+                <button (click)="detenerVideo()">Detener</button>
+            </div>
+
+            <div>
+                <button (click)="continuarVideo()">Continuar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <input type="number" #repeticionesPorFrase min=0 value="0">
+
+        <p (click)="moverVideo(5.5,3)">primer texto del video </p>
+        <p (click)="moverVideo(8.2,3)">primer texto del video </p>
+    </div>
+</div>
