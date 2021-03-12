@@ -1,9 +1,10 @@
 <h1>Historia</h1>
 
 <div class="row">
-    <div class="col-sm-6">
-        <video width="320" height="240" #videoPlayer muted>
+    <div class="col-sm-5">
+        <video width="320" height="240" #videoPlayer controls>
             <source src="{{historia.url}}" type="video/mp4" >
+                <track src="{{historia.subtitle}}" kind="subtitles" srclang="es" label="Español">
           </video>
         <div class="d-flex">
 
@@ -22,10 +23,21 @@
         </div>
     </div>
 
-    <div class="col-sm-6">
-        <input type="number" #repeticionesPorFrase min=0 value="0">
+    <div class="col-sm-7">
+        <label for="">Repetir por sección</label>
+        <input type="number" #repeticionesPorFrase min=0 value="2">
+        <label for="">Repetir por historia</label>
+        <input type="number" #repeticionesPorHistoria min=0 value="2">
+        <label for="">Iniciar Historia</label>
+        <button (click)="repetirSeccionDesdeData()">Iniciar historia</button>
 
-        <p (click)="moverVideo(5.5,3)">primer texto del video </p>
-        <p (click)="moverVideo(8.2,3)">primer texto del video </p>
+        <div class="d-flex" *ngFor="let seccione of historia.seccion">
+            <button (click)="repetirSeccion(seccione.inicio,seccione.fin)">Iniciar</button>
+            <p> {{seccione.texto}} </p>
+        </div>
+
+
+
+
     </div>
 </div>
