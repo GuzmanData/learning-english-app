@@ -22,7 +22,6 @@ export class HistoriaService {
         historiaReturn =  historiaData;
       }
     })
-
     return historiaReturn;
 
   }

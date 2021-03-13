@@ -2,7 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { Historia } from '../../interfaces/historia.interface';
 import { HistoriaService } from '../../services/historia.service';
-import { Seccion } from '../../interfaces/contenido.interface';
+import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-historia',
@@ -15,6 +16,7 @@ export class HistoriaComponent implements OnInit {
   duracionHistoria: number;
 
   historia: Historia;
+  id:number;
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   @ViewChild('repeticionesPorFrase') repeticionesPorFrase: ElementRef;
   @ViewChild('repeticionesPorHistoria') repeticionesPorHistoria: ElementRef;
@@ -23,11 +25,20 @@ export class HistoriaComponent implements OnInit {
 
 
   constructor(
-    private historiaService: HistoriaService
+    private historiaService: HistoriaService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.historia = this.historiaService.getHistoria(2);
+
+    console.log(this.activatedRoute.params.subscribe(({id}) => {
+     this.id =id;
+    })); 
+
+
+
+
+    this.historia = this.historiaService.getHistoria(this.id);
 
 
 
@@ -55,31 +66,31 @@ export class HistoriaComponent implements OnInit {
 
 
 
-  iniciarHistoria(tiempoInicio: number, tiempoFin: number) {
+  // iniciarHistoria(tiempoInicio: number, tiempoFin: number) {
 
-    this.videoplayer.nativeElement.muted = 'muted';
+  //   this.videoplayer.nativeElement.muted = 'muted';
 
-    clearInterval(this.interval);
-
-
-    if (tiempoInicio === 0 && tiempoInicio === 0) {
-
-      if (this.repeticionesPorFrase.nativeElement.value > 0) {
-
-        this.repetirHistoria()
-      } else {
-        this.videoplayer.nativeElement.play()
-        this.videoplayer.nativeElement.currentTime = tiempoInicio;
-      }
+  //   clearInterval(this.interval);
 
 
-    } else {
-      this.repetirSeccion(1, 2)
+  //   if (tiempoInicio === 0 && tiempoInicio === 0) {
 
-    }
+  //     if (this.repeticionesPorFrase.nativeElement.value > 0) {
+
+  //       this.repetirHistoria()
+  //     } else {
+  //       this.videoplayer.nativeElement.play()
+  //       this.videoplayer.nativeElement.currentTime = tiempoInicio;
+  //     }
 
 
-  }
+  //   } else {
+  //     this.repetirSeccion(1, 2)
+
+  //   }
+
+
+  // }
 
 
   silenciaVideo = () => {
@@ -129,29 +140,29 @@ export class HistoriaComponent implements OnInit {
   };
 
 
-  repetirHistoria = () => {
-    clearInterval(this.interval);
+  // repetirHistoria = () => {
+  //   clearInterval(this.interval);
 
 
-    this.duracionHistoria = 0;
-    this.historia.seccion.forEach(x => {
-      this.duracionHistoria = (x.fin * this.repeticionesPorFrase.nativeElement.value) + this.duracionHistoria
-      console.log(this.duracionHistoria);
-    });
+  //   this.duracionHistoria = 0;
+  //   this.historia.seccion.forEach(x => {
+  //     this.duracionHistoria = (x.fin * this.repeticionesPorFrase.nativeElement.value) + this.duracionHistoria
+  //     console.log(this.duracionHistoria);
+  //   });
 
-    this.videoplayer.nativeElement.play()
-    this.videoplayer.nativeElement.currentTime = this.historia.inicioHistoria;
+  //   this.videoplayer.nativeElement.play()
+  //   this.videoplayer.nativeElement.currentTime = this.historia.inicioHistoria;
 
-    let contarRepeticiones: number = 0;
-    this.interval = setInterval(() => {
-      contarRepeticiones++;
-      this.repetirSeccionDesdeData();
-      if (contarRepeticiones >= this.repeticionesPorHistoria.nativeElement.value) {
-        clearInterval(this.interval);
-        this.videoplayer.nativeElement.pause();
-      }
-    }, this.duracionHistoria * 1000);
-  }
+  //   let contarRepeticiones: number = 0;
+  //   this.interval = setInterval(() => {
+  //     contarRepeticiones++;
+  //     this.repetirSeccionDesdeData();
+  //     if (contarRepeticiones >= this.repeticionesPorHistoria.nativeElement.value) {
+  //       clearInterval(this.interval);
+  //       this.videoplayer.nativeElement.pause();
+  //     }
+  //   }, this.duracionHistoria * 1000);
+  // }
 
 
   repetirSeccionDesdeData = () => {

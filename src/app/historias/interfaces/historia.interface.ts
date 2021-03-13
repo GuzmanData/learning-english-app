@@ -1,9 +1,7 @@
-import { Seccion } from './contenido.interface';
+import { Seccion } from './seccion.interface';
 export interface Historia {
     id: number,
     url?: string,
     subtitle?: string,
-    seccion?: Seccion[],
-    finHistoria?: number,
-    inicioHistoria?:number
+    seccion?: Seccion[]
 }

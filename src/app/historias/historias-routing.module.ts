@@ -9,10 +9,7 @@ const routes: Routes = [
 {
   path: '',
   children: [
-    {
-      path:'',
-      component:HistoriaComponent
-    },
+
     {
       path:'agregar',
       component:AgregarComponent
@@ -20,6 +17,10 @@ const routes: Routes = [
     {
       path:'listar',
       component:ListarComponent
+    },
+    {
+      path:':id',
+      component:HistoriaComponent
     },
     {
       path: '**',
